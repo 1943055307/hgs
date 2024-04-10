@@ -1,0 +1,1 @@
+python scripts/demo_image.py --img-dir examples --out-dir res
