@@ -1,1 +1,5 @@
 python scripts/demo_image.py --img-dir examples --out-dir res
+
+python train.py -s data/lego
+
+viewers\bin\SIBR_gaussianViewer_app.exe -m output\07e21d5a-c
