@@ -38,7 +38,7 @@ def main():
 
     json_file_path = 'HybrIK/SMPL/keypoints_data.json'
     with open(json_file_path, 'r') as json_file:
-        data = json.load(json_file)['r_001']
+        data = json.load(json_file)['r_011']
 
     theta_params = torch.tensor(data['pred_theta_mats'], dtype=torch.float32)
     rotation_matrices = theta_params.view(24, 3, 3)
