@@ -9,14 +9,13 @@ from smplpytorch.pytorch.smpl_layer import SMPL_Layer
 def main():
     o3d.visualization.gui.Application.instance.initialize()
 
-    #json_file_path = 'transformed_joints_data.json'
     json_file_path = 'canonical_joints.json'
 
     with open(json_file_path, 'r') as json_file:
         data = json.load(json_file)
 
-    #joints = data['r_001']['transformed_joints'] + data['r_003']['transformed_joints'] 
-    joints = data['r_001'] + data['r_003'] 
+    # joints = data['r_000']['transformed_joints'] + data['r_003']['transformed_joints'] 
+    joints = data['r_000'] + data['r_001'] 
 
     window = o3d.visualization.gui.Application.instance.create_window("SMPL Visualization", 1024, 768)
     widget3d = o3d.visualization.gui.SceneWidget()
