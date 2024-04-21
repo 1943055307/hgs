@@ -6,6 +6,7 @@ import pickle
 import torchgeometry as tgm
 from smplpytorch.pytorch.smpl_layer import SMPL_Layer
 
+
 def main():
     o3d.visualization.gui.Application.instance.initialize()
 
@@ -16,7 +17,7 @@ def main():
 
     json_file_path = 'transformed_pose_data.json'
     with open(json_file_path, 'r') as json_file:
-        data = json.load(json_file)['r_000']
+        data = json.load(json_file)['r_001']
 
     transformed_vertices = data['transformed_vertices']
     transformed_joints = data['transformed_joints']

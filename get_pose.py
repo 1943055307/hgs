@@ -49,8 +49,8 @@ def main():
 
             transform_matrix = torch.tensor([
                 [1.0, 0.0, 0.0, 0.0],
-                [0.0, -1.0, 0.0, 0.0],
-                [0.0, 0.0, -1.0, 0.0],
+                [0.0, 1.0, 0.0, 0.0],
+                [0.0, 0.0, 1.0, 0.0],
                 [0.0, 0.0, 0.0, 1.0]
             ])
             transformed_vertices, transformed_joints = apply_transformation(vertices.detach().numpy().squeeze(), joints.detach().numpy().squeeze(), transform_matrix)

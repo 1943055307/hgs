@@ -11,10 +11,17 @@ def invert_matrices(input_filepath, output_filepath):
     inv_matrices = {}
 
     for frame in tqdm(data, desc="Calculating Inverse Matrices"):
-        matrix = np.array(frame['transform_matrix'])
-        inv_matrix = np.linalg.inv(matrix)
+        c2w = np.array(frame["transform_matrix"])
+        # change from OpenGL/Blender camera axes (Y up, Z back) to COLMAP (Y down, Z forward)
+        c2w[:3, 1:3] *= -1
+
+        # get the world-to-camera transform and set R, T
+        w2c = np.linalg.inv(c2w)
+        R = np.transpose(w2c[:3,:3])  # R is stored transposed due to 'glm' in CUDA code
+        T = w2c[:3, 3]
         inv_matrices[os.path.basename(frame['file_path'])] = {
-            "inv_matrix": inv_matrix.tolist() 
+            "R": R.tolist(),
+            "T": T.tolist() 
         }
 
     with open(output_filepath, 'w') as outfile:
