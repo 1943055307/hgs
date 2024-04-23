@@ -34,10 +34,10 @@ def main(max_models):
 
         material = o3d.visualization.rendering.MaterialRecord()
         material.shader = "defaultLit"
-        material.base_color = [0.5, 0.5, 0.5, 0.5]  # 半透明灰色
+        material.base_color = [0.5, 0.5, 0.5, 0.5]  
 
         widget3d.scene.add_geometry(f"mesh_{key}", mesh, material)
-        count += 1  # 增加模型计数
+        count += 1  
 
     bounds = widget3d.scene.bounding_box
     widget3d.setup_camera(60.0, bounds, bounds.get_center())

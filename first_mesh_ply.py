@@ -2,32 +2,40 @@ import json
 import numpy as np
 import open3d as o3d
 import pickle
-import argparse 
+import argparse
 from plyfile import PlyData, PlyElement
 
-def storePly(path, xyz, rgb):
+def storePly(path, xyz, normals, rgb):
     # Define the dtype for the structured array
     dtype = [('x', 'f4'), ('y', 'f4'), ('z', 'f4'),
-            ('nx', 'f4'), ('ny', 'f4'), ('nz', 'f4'),
-            ('red', 'u1'), ('green', 'u1'), ('blue', 'u1')]
+             ('nx', 'f4'), ('ny', 'f4'), ('nz', 'f4'),
+             ('red', 'u1'), ('green', 'u1'), ('blue', 'u1')]
     
-    normals = np.zeros_like(xyz)
-
-    elements = np.empty(xyz.shape[0], dtype=dtype)
-    attributes = np.concatenate((xyz, normals, rgb), axis=1)
-    elements[:] = list(map(tuple, attributes))
+    elements = np.zeros(xyz.shape[0], dtype=dtype)
+    elements['x'] = xyz[:, 0]
+    elements['y'] = xyz[:, 1]
+    elements['z'] = xyz[:, 2]
+    elements['nx'] = normals[:, 0]
+    elements['ny'] = normals[:, 1]
+    elements['nz'] = normals[:, 2]
+    elements['red'] = rgb[:, 0]
+    elements['green'] = rgb[:, 1]
+    elements['blue'] = rgb[:, 2]
 
     # Create the PlyData object and write to file
     vertex_element = PlyElement.describe(elements, 'vertex')
-    ply_data = PlyData([vertex_element])
+    ply_data = PlyData([vertex_element], text=False)
     ply_data.write(path)
     
 def save_point_cloud(vertices, filename):
-    point_cloud = o3d.geometry.PointCloud()
-    point_cloud.points = o3d.utility.Vector3dVector(vertices)
+    # Assume vertices is a numpy array
+    xyz = np.array(vertices)
+    num_pts = xyz.shape[0]
+    normals = np.zeros_like(xyz)  # Assuming there are no normals, set all to zero
+    rgb = np.full((num_pts, 3), 255, dtype=np.uint8)  # Set all colors to white for simplicity
 
-    o3d.io.write_point_cloud(filename, point_cloud, write_ascii=True, print_progress=True)
-
+    # Call the function to store the PLY
+    storePly(filename, xyz, normals, rgb)
 
 def main(chosen_index):
     o3d.visualization.gui.Application.instance.initialize()
@@ -47,7 +55,7 @@ def main(chosen_index):
         return
 
     chosen_key = keys[chosen_index]
-    transformed_vertices = data[chosen_key]
+    transformed_vertices = np.array(data[chosen_key])
 
     window = o3d.visualization.gui.Application.instance.create_window("SMPL Visualization", 1024, 768)
     widget3d = o3d.visualization.gui.SceneWidget()

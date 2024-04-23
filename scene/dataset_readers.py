@@ -52,8 +52,10 @@ def getNerfppNorm(cam_info):
         return center.flatten(), diagonal
 
     cam_centers = []
+    count = 0
 
     for cam in cam_info:
+        count += 1
         W2C = getWorld2View2(cam.R, cam.T)
         C2W = np.linalg.inv(W2C)
         cam_centers.append(C2W[:3, 3:4])
@@ -62,6 +64,10 @@ def getNerfppNorm(cam_info):
     radius = diagonal * 1.1
 
     translate = -center
+
+    print(translate)
+    print(radius)
+    print(count)
 
     return {"translate": translate, "radius": radius}
 

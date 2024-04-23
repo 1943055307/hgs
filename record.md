@@ -1,6 +1,9 @@
+baseline:
+![alt text](image.png)
+
+baselinechecker:
+![alt text](image-2.png)
+
 first:
-Number of points at initialisation :  100000
-[ITER 7000] Evaluating train: L1 0.0008220252464525402 PSNR 44.72054824829102 [22/04 23:13:48]
-76902
-[ITER 30000] Evaluating train: L1 0.0004621198808308691 PSNR 51.36773834228516 [22/04 23:20:23]
-113615
+![alt text](image-1.png)
+
