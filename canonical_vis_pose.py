@@ -10,7 +10,7 @@ def main():
     ignore_keys_file = 'ignore_keys.txt'
 
     with open(ignore_keys_file, 'r') as file:
-        ignore_keys = {line.strip() for line in file} 
+        ignore_keys = {line.strip() for line in file}
 
     with open(json_file_path, 'r') as json_file:
         data = json.load(json_file)
@@ -21,24 +21,28 @@ def main():
     window.add_child(widget3d)
 
     cmap = plt.get_cmap("viridis")
-    num_sets = 10
+    max_sets = 1  # Maximum number of data sets to visualize
 
-    for i in range(num_sets):
-        key = f'r_{i:03d}'
-        if key in ignore_keys: 
+    i = 0
+    for key in data.keys():
+        if i >= max_sets:
+            break
+        if key in ignore_keys:
             continue
-        if key in data:
-            joints = np.array(data[key])
-            color = cmap(i / num_sets)[:3]
-            joints_material = o3d.visualization.rendering.MaterialRecord()
-            joints_material.shader = "defaultLit"
-            joints_material.base_color = [*color, 0.6]
+        
+        joints = np.array(data[key])
+        color = cmap(i / max_sets)[:3]
+        joints_material = o3d.visualization.rendering.MaterialRecord()
+        joints_material.shader = "defaultLit"
+        joints_material.base_color = [*color, 0.6]
 
-            for idx, joint in enumerate(joints):
-                sphere = o3d.geometry.TriangleMesh.create_sphere(radius=0.01)
-                sphere.translate(joint)
-                sphere.paint_uniform_color(color)
-                widget3d.scene.add_geometry(f"joint_sphere_{key}_{idx}", sphere, joints_material)
+        for idx, joint in enumerate(joints):
+            sphere = o3d.geometry.TriangleMesh.create_sphere(radius=0.01)
+            sphere.translate(joint)
+            sphere.paint_uniform_color(color)
+            widget3d.scene.add_geometry(f"joint_sphere_{key}_{idx}", sphere, joints_material)
+
+        i += 1
 
     bounds = widget3d.scene.bounding_box
     widget3d.setup_camera(60.0, bounds, bounds.get_center())

@@ -1,14 +1,24 @@
 python scripts/demo_image.py --img-dir examples --out-dir res
 
+python train.py -s data/tshirt
+
 python train.py -s data/lego
 
-python train.py -s lego
-
-viewers\bin\SIBR_gaussianViewer_app.exe -m output\07e21d5a-c
+viewers\bin\SIBR_gaussianViewer_app.exe -m output\3db36415-4
 
 python render.py --source_path data/jumpingjacks --model_path outputs/jumpingjacks --deform_type node --node_num 512 --is_blender --eval --gt_alpha_mask_as_scene_mask --local_frame --resolution 2 --W 800 --H 800
 
 
 python train_gui.py --source_path data/jumpingjacks --model_path outputs/jumpingjacks --deform_type node --node_num 512 --hyper_dim 8 --is_blender --eval --gt_alpha_mask_as_scene_mask --local_frame --resolution 2 --W 800 --H 800 --gui
 
-python
+python canonical_vis_mesh.py --num 6
+
+python render.py -m output/3db36415-4
+
+python metrics.py -m output/3db36415-4
+
+python scripts/demo_image.py --img-dir examples --out-dir res
+
+python first_mesh_ply.py --index 11
+
+python train.py -s odata/tshirt

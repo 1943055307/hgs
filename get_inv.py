@@ -19,7 +19,13 @@ def invert_matrices(input_filepath, output_filepath):
         w2c = np.linalg.inv(c2w)
         R = np.transpose(w2c[:3,:3])  # R is stored transposed due to 'glm' in CUDA code
         T = w2c[:3, 3]
-        inv_matrices[os.path.basename(frame['file_path'])] = {
+
+        # Get the base filename without extension
+        file_name = os.path.basename(frame['file_path'])
+        if file_name.endswith('.png'):
+            file_name = file_name[:-4]  # Remove ".png" from the file name
+        
+        inv_matrices[file_name] = {
             "R": R.tolist(),
             "T": T.tolist() 
         }
@@ -28,6 +34,6 @@ def invert_matrices(input_filepath, output_filepath):
         json.dump(inv_matrices, outfile, indent=4)
 
 if __name__ == "__main__":
-    input_filepath = 'data/transforms_train.json'
+    input_filepath = 'data/tshirt/transforms_train.json'
     output_filepath = 'inv_matrix.json'
     invert_matrices(input_filepath, output_filepath)

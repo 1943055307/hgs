@@ -24,7 +24,7 @@ def apply_transformation(vertices, joints, transform_matrix):
 def main():
 
     smpl_layer = SMPL_Layer(
-        gender='female',
+        gender='male',
         model_root='smpl/models'
     )
 
