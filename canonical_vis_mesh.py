@@ -7,7 +7,7 @@ import argparse
 def main(max_models):
     o3d.visualization.gui.Application.instance.initialize()
 
-    model_path = 'smpl/models/basicmodel_m_lbs_10_207_0_v1.0.0.pkl'
+    model_path = 'smpl/models/basicModel_f_lbs_10_207_0_v1.0.0.pkl'
     with open(model_path, 'rb') as f:
         smpl_model_data = pickle.load(f, encoding='latin1')
     faces = smpl_model_data['f']

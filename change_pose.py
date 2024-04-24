@@ -26,15 +26,9 @@ def main():
 
     for pic_name in data.keys():
         transformed_joints = data[pic_name]['transformed_joints']
-        R = torch.tensor(inv_data[pic_name]['R'], dtype=torch.float32)
-        T = torch.tensor(inv_data[pic_name]['T'], dtype=torch.float32)
+        Rt = torch.tensor(inv_data[pic_name]['Rt'], dtype=torch.float32)
 
-        Rt = torch.zeros((4, 4), dtype=torch.float32)  
-        Rt[:3, :3] = R.transpose(0, 1)
-        Rt[:3, 3] = T
-        Rt[3, 3] = 1.0
-
-        transformed_joints = apply_transformation(transformed_joints, torch.tensor(Rt).transpose(0, 1))
+        transformed_joints = apply_transformation(transformed_joints, torch.tensor(Rt))
         output_data[pic_name] = transformed_joints.tolist()
 
     with open(output_file_path, 'w') as outfile:

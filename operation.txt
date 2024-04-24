@@ -1,10 +1,10 @@
 python scripts/demo_image.py --img-dir examples --out-dir res
 
-python train.py -s data/tshirt -m output/baselinechecker
+python train.py -s data/tshirt -m output/baselinec
 
 python train.py -s data/lego
 
-viewers\bin\SIBR_gaussianViewer_app.exe -m output\3db36415-4
+viewers\bin\SIBR_gaussianViewer_app.exe -m output\baseline
 
 python render.py --source_path data/jumpingjacks --model_path outputs/jumpingjacks --deform_type node --node_num 512 --is_blender --eval --gt_alpha_mask_as_scene_mask --local_frame --resolution 2 --W 800 --H 800
 
@@ -21,4 +21,4 @@ python scripts/demo_image.py --img-dir examples --out-dir res
 
 python first_mesh_ply.py --index 11
 
-python train.py -s odata/tshirt -m output/second
+python train.py -s odata/tshirt -m output/fourth

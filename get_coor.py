@@ -10,7 +10,7 @@ def apply_transformation(joints, transform_matrix):
     return transformed_joints.numpy()
 
 def main():
-    json_file_path = 'keypoints_data.json'
+    json_file_path = 'keypoints_data_s.json'
     output_data = {}
 
     with open(json_file_path, 'r') as json_file:

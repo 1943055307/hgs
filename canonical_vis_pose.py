@@ -21,7 +21,7 @@ def main():
     window.add_child(widget3d)
 
     cmap = plt.get_cmap("viridis")
-    max_sets = 1  # Maximum number of data sets to visualize
+    max_sets = 6  # Maximum number of data sets to visualize
 
     i = 0
     for key in data.keys():

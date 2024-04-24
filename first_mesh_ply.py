@@ -6,7 +6,6 @@ import argparse
 from plyfile import PlyData, PlyElement
 
 def storePly(path, xyz, normals, rgb):
-    # Define the dtype for the structured array
     dtype = [('x', 'f4'), ('y', 'f4'), ('z', 'f4'),
              ('nx', 'f4'), ('ny', 'f4'), ('nz', 'f4'),
              ('red', 'u1'), ('green', 'u1'), ('blue', 'u1')]
@@ -22,19 +21,18 @@ def storePly(path, xyz, normals, rgb):
     elements['green'] = rgb[:, 1]
     elements['blue'] = rgb[:, 2]
 
-    # Create the PlyData object and write to file
     vertex_element = PlyElement.describe(elements, 'vertex')
     ply_data = PlyData([vertex_element], text=False)
     ply_data.write(path)
     
 def save_point_cloud(vertices, filename):
-    # Assume vertices is a numpy array
     xyz = np.array(vertices)
     num_pts = xyz.shape[0]
-    normals = np.zeros_like(xyz)  # Assuming there are no normals, set all to zero
-    rgb = np.full((num_pts, 3), 255, dtype=np.uint8)  # Set all colors to white for simplicity
+    normals = np.zeros_like(xyz)
+    C0 = 0.28209479177387814
+    shs = np.random.random((num_pts, 3)) / 255.0
+    rgb = (shs * C0 + 0.5) * 255
 
-    # Call the function to store the PLY
     storePly(filename, xyz, normals, rgb)
 
 def main(chosen_index):
