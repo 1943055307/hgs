@@ -52,6 +52,6 @@ def invert_matrices(input_filepath, output_filepath):
         json.dump(inv_matrices, outfile, indent=4)
 
 if __name__ == "__main__":
-    input_filepath = 'data/tshirt/transforms_train.json'
-    output_filepath = 'inv_matrix.json'
+    input_filepath = 'data/jump/transforms_train.json'
+    output_filepath = 'inv_matrix_jump.json'
     invert_matrices(input_filepath, output_filepath)

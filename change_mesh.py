@@ -22,8 +22,8 @@ def apply_transformation(joints, transform_matrix):
 
 def main():
     json_file_path = 'transformed_pose_data.json'
-    inv_json_file_path = 'inv_matrix.json'
-    output_file_path = 'canonical_mesh.json'
+    inv_json_file_path = 'inv_matrix_jump.json'
+    output_file_path = 'canonical_mesh_jump.json'
     translation_file_path = 'keypoints_data.json'
     output_data = {}
 

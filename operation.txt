@@ -22,3 +22,5 @@ python scripts/demo_image.py --img-dir examples --out-dir res
 python first_mesh_ply.py --index 11
 
 python train.py -s odata/tshirt -m output/fourth
+
+python dynamic.py --num 6 --time 100

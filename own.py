@@ -1,0 +1,1 @@
+def pre_trans(cf, k):
