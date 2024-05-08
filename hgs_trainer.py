@@ -1,8 +1,3 @@
-#
-# For licensing see accompanying LICENSE file.
-# Copyright (C) 2024 Apple Inc. All Rights Reserved.
-#
-
 import os
 import glob
 import shutil
@@ -37,7 +32,6 @@ class GaussianTrainer():
             self.human_gs.setup_optimizer(cfg=cfg.human.lr)
             logger.info(self.human_gs)
             if cfg.human.ckpt:
-                # load_human_ckpt(self.human_gs, cfg.human.ckpt)
                 self.human_gs.load_state_dict(torch.load(cfg.human.ckpt))
                 logger.info(f'Loaded human model from {cfg.human.ckpt}')
             else:
