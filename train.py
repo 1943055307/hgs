@@ -48,7 +48,11 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
     ema_loss_for_log = 0.0
     progress_bar = tqdm(range(first_iter, opt.iterations), desc="Training progress")
     first_iter += 1
-    for iteration in range(first_iter, opt.iterations + 1):        
+
+    viewpoint_stack = scene.getTrainCameras().copy()
+    viewpoint_index = 0 
+
+    for iteration in range(first_iter, opt.iterations + 1):
         if network_gui.conn == None:
             network_gui.try_connect()
         while network_gui.conn != None:
@@ -72,10 +76,8 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         if iteration % 1000 == 0:
             gaussians.oneupSHdegree()
 
-        # Pick a random Camera
-        if not viewpoint_stack:
-            viewpoint_stack = scene.getTrainCameras().copy()
-        viewpoint_cam = viewpoint_stack.pop(randint(0, len(viewpoint_stack)-1))
+        viewpoint_cam = viewpoint_stack[viewpoint_index]
+        viewpoint_index = (viewpoint_index + 1) % len(viewpoint_stack)  
 
         # Render
         if (iteration - 1) == debug_from:
@@ -125,11 +127,13 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             # Optimizer step
             if iteration < opt.iterations:
                 gaussians.optimizer.step()
-                gaussians.optimizer.zero_grad(set_to_none = True)
+                gaussians.optimizer.zero_grad(set_to_none=True)
 
             if (iteration in checkpoint_iterations):
                 print("\n[ITER {}] Saving Checkpoint".format(iteration))
                 torch.save((gaussians.capture(), iteration), scene.model_path + "/chkpnt" + str(iteration) + ".pth")
+
+
 
 def prepare_output_and_logger(args):    
     if not args.model_path:

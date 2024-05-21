@@ -27,6 +27,8 @@ python dynamic.py --num 6 --time 100
 
 python train.py -s odata/jump -m output/first
 
+python train.py -s odata/jump -m output/second
+
 python render.py -m output/first
 
 python metrics.py -m output/first
