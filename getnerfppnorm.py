@@ -45,5 +45,5 @@ def getNerfppNorm(input_filepath):
 
 
 if __name__ == "__main__":
-    input_filepath = 'inv_matrix.json'
+    input_filepath = 'inv_matrix_jump.json'
     getNerfppNorm(input_filepath)

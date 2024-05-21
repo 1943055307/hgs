@@ -66,7 +66,7 @@ def main(chosen_index):
         smpl_model_data = pickle.load(f, encoding='latin1')
     faces = smpl_model_data['f']
 
-    json_file_path = 'canonical_mesh.json'
+    json_file_path = 'canonical_mesh_jump_weighted.json'
     with open(json_file_path, 'r') as json_file:
         data = json.load(json_file)
 

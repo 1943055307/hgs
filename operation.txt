@@ -24,3 +24,13 @@ python first_mesh_ply.py --index 11
 python train.py -s odata/tshirt -m output/fourth
 
 python dynamic.py --num 6 --time 100
+
+python train.py -s odata/jump -m output/first
+
+python render.py -m output/first
+
+python metrics.py -m output/first
+
+get_pose_female
+get_inv
+change_mesh

@@ -1,1 +1,1 @@
-Namespace(data_device='cuda', eval=False, images='images', model_path='output/first', resolution=-1, sh_degree=3, source_path='E:\\work\\hgs\\odata\\tshirt', white_background=False)
+Namespace(data_device='cuda', eval=False, images='images', model_path='output/first', resolution=-1, sh_degree=3, source_path='E:\\work\\hgs\\odata\\jump', white_background=False)

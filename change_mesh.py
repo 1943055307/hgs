@@ -10,9 +10,9 @@ def apply_transformation(joints, transform_matrix):
     joints_torch = torch.tensor(joints, dtype=torch.float32)
     transformed_joints = torch.mm(transform_matrix[:3, :3], joints_torch.T).T + transform_matrix[:3, 3]
     # 定义向量
-    vec = np.array([-0.02128927, 0.07789805, -2.5382574 ]) * (-1.0 / 4.005270504951477)
+    vec = np.array([0.16973075, -0.2493738, -2.4377124]) * (-1.0 / 5.922703504562379)
     # vec = np.array([0, 0, 0 ])
-    vec = vec + np.array([-0.06, 0.06, 0.1 ])
+    # vec = vec + np.array([-0.06, 0.06, 0.1 ])
     translation_vector = torch.tensor( vec,  dtype=torch.float32)
     transformed_joints += translation_vector
     return transformed_joints.numpy()
